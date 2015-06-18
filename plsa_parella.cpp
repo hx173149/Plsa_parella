@@ -78,7 +78,6 @@ void PLSAOBJParella::EStep(int start_doc,int end_doc)
 {
   double** train_data = in_train_data;
   //calculate p(tk|di)
-  //for(int i=0;i<doc_num;i++)
   for(int i=start_doc;i<end_doc;i++)
     for(int j=0;j<word_num;j++)
     {
@@ -106,7 +105,6 @@ void PLSAOBJParella::MStep(int start_topic,int end_topic)
 {
   double** train_data = in_train_data;
   //calc p(w|t)
-  //for(int i=0;i<topic_num;i++)
   for(int i=start_topic;i<end_topic;i++)
   {
     double down = 0;
@@ -149,7 +147,6 @@ void PLSAOBJParella::MStep(int start_topic,int end_topic)
     {
       down += train_data[i][k];
     }
-    //for(int j=0;j<topic_num;j++)
     for(int j=start_topic;j<end_topic;j++)
     {
       double top = 0;
@@ -227,7 +224,6 @@ int PLSAOBJParella::TrainModel(double** train_data,int d_num,int w_num,int t_num
   int cur_iter = 0;
   boost::thread** thrdP;
   while(abs(likehood-last_likehood)>eps&&cur_iter<max_iter)
-  //while(cur_iter<max_iter)
   {
     cur_iter++;
     gettimeofday(&start_t,NULL);
@@ -264,18 +260,6 @@ int PLSAOBJParella::TrainModel(double** train_data,int d_num,int w_num,int t_num
     //calculate likelyhood
     m_likehood = 0;
     LogLikehood(0,doc_num);
-    /*
-    thrdP = new boost::thread*[THREAD_NUM];
-    for(int i=0;i<THREAD_NUM;i++)
-    {
-      thrdP[i] = new boost::thread(boost::bind(&PLSAOBJParella::LogLikehood,this,i*(topic_num/THREAD_NUM),(i+1)*(topic_num/THREAD_NUM)));
-    }
-    for(int i=0;i<THREAD_NUM;i++)
-    {
-      thrdP[i]->join();
-    }
-    delete[] thrdP;
-    */
     likehood = m_likehood;
      
     gettimeofday(&end_t,NULL);
@@ -321,7 +305,6 @@ int PLSAOBJParella::ContinueTrain(double** train_data,int d_num,int w_num,int t_
     gettimeofday(&start_t,NULL);
     last_likehood = likehood;
     //E step
-    //EStep(0,doc_num); 
     cout<<"E-STEP"<<endl;
     thrdP = new boost::thread*[THREAD_NUM];
     for(int i=0;i<THREAD_NUM;i++)
@@ -335,7 +318,6 @@ int PLSAOBJParella::ContinueTrain(double** train_data,int d_num,int w_num,int t_
     delete[] thrdP;
 
     //M step
-    //MStep(0,topic_num); 
     cout<<"M-STEP"<<endl;
     thrdP = new boost::thread*[THREAD_NUM];
     for(int i=0;i<THREAD_NUM;i++)
