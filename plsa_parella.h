@@ -30,10 +30,10 @@ class PLSAOBJParella
     PLSAOBJParella();
     ~PLSAOBJParella();
     int TrainModel(double** train_data,int d_num,int w_num,int t_num,double eps,int max_iter);
-    int ContinueTrain(double** train_data,int d_num,int w_num,int t_num,int max_iter);
-    int ReduceDimension(double* src,double* dst,int& len,int iter_max);
+    int Inference(double* src,double* dst,int& len,int iter_max);
     int SaveModel(const string& filepath);
     int LoadModel(const string& filepath);
+    int ContinueTrain(double** train_data,int d_num,int w_num,int t_num,int max_iter);
   //protected:
   public:
     int GetSize(int& d_num,int& t_num,int& w_num);

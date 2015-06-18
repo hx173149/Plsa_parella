@@ -370,7 +370,7 @@ int PLSAOBJParella::ContinueTrain(double** train_data,int d_num,int w_num,int t_
 }
 
 
-int PLSAOBJParella::ReduceDimension(double* src,double* dst,int& len,int iter_max)
+int PLSAOBJParella::Inference(double* src,double* dst,int& len,int iter_max)
 {
   len = topic_num;
   float** tmpP_t_w = new float*[word_num];
